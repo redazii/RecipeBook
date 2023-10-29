@@ -1,11 +1,13 @@
 import datetime
 from pydantic import BaseModel
+from typing import List
+
 
 # Modèle Pydantic pour une recette
 class Recipe(BaseModel):
     id: str
     name: str
-    ingredients: list  # Liste d'ingrédients
+    ingredients: List  # Liste d'ingrédients
     instructions: str  # Instructions de préparation
     cooking_time: int  # Temps de cuisson en minutes
     created_at: datetime.datetime
@@ -13,14 +15,14 @@ class Recipe(BaseModel):
 # Modèle Pydantic pour POST (ajouter une recette)
 class RecipeCreate(BaseModel):
     name: str
-    ingredients: list
+    ingredients: List
     instructions: str
     cooking_time: int
 
 # Modèle Pydantic pour la mise à jour d'une recette
 class RecipeUpdate(BaseModel):
     name: str
-    ingredients: list
+    ingredients: List
     instructions: str
     cooking_time: int
 

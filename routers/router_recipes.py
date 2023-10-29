@@ -1,50 +1,31 @@
-from fastapi import APIRouter, HTTPException
-from typing import List
-import uuid
-from recipes.schema_dto import Recipe, RecipeNoID
+from fastapi import APIRouter
+from recipes.schema_dto import Recipe
 
 router = APIRouter(
     prefix='/recipes',
     tags=["Recipes"]
 )
 
-recipes = [
-    Recipe(id="recipe1", name="Spaghetti Bolognese", ingredients=["spaghetti", "ground beef", "tomato sauce"]),
-    Recipe(id="recipe2", name="Chicken Alfredo", ingredients=["chicken", "fettuccine pasta", "alfredo sauce"]),
-    Recipe(id="recipe3", name="Vegetable Stir-Fry", ingredients=["mixed vegetables", "soy sauce", "rice"])
-]
+recipes = []
+   
 
-@router.get('/', response_model=List[Recipe])
-async def get_recipes():
-    """List all the recipes."""
+
+# Endpoint to display all recipes (GET)
+@router.get("/recipes/")
+def display_recipes():
     return recipes
 
-@router.post('/', response_model=Recipe, status_code=201)
-async def create_recipe(new_recipe: RecipeNoID):
-    generated_id = uuid.uuid4()
-    new_recipe = Recipe(id=str(generated_id), **new_recipe.dict())
-    recipes.append(new_recipe)
-    return new_recipe
 
-@router.get('/{recipe_id}', response_model=Recipe)
-async def get_recipe_by_id(recipe_id: str):
-    for recipe in recipes:
-        if recipe.id == recipe_id:
-            return recipe
-    raise HTTPException(status_code=404, detail="Recipe not found")
+# Endpoint to delete a recipe by name (DELETE)
+@router.delete("/recipes/{name}")
+def delete_recipe(name: str):
+    global recipes
+    recipes = [recipe for recipe in recipes if recipe.name != name]
+    return {"message": f"Recipe with the name '{name}' deleted successfully"}
 
-@router.patch('/{recipe_id}', status_code=204)
-async def modify_recipe_name(recipe_id: str, modified_recipe: RecipeNoID):
-    for recipe in recipes:
-        if recipe.id == recipe_id:
-            recipe.name = modified_recipe.name
-            return
-    raise HTTPException(status_code=404, detail="Recipe not found")
 
-@router.delete('/{recipe_id}', status_code=204)
-async def delete_recipe(recipe_id: str):
-    for recipe in recipes:
-        if recipe.id == recipe_id:
-            recipes.remove(recipe)
-            return
-    raise HTTPException(status_code=404, detail="Recipe not found")
+# Endpoint to add a recipe (POST)
+@router.post("/add-recipe/")
+def add_recipe(recipe: Recipe):
+    recipes.append(recipe)
+    return {"message": "Recipe added successfully"}
