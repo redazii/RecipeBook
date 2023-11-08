@@ -84,10 +84,10 @@ def update_recipe(recipe_id: str, updated_recipe_data: dict , user_data: int= De
 
 # Endpoint pour récupérer une recette par son nom (GET)
 @router.get("/category/{category}")
-def get_recipe_by_name(category: str ,user_data: int= Depends(get_current_user)):
+def get_recipe_by_category(category: str ,user_data: int= Depends(get_current_user)):
   search_result = []
   recipes =  display_recipes(user_data=user_data)
   for recipe in recipes:
-      if category in recipe['name'].lower():
+      if category in recipe['category'].lower():
        search_result.append(recipe)
   return search_result
