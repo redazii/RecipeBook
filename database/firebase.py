@@ -15,4 +15,4 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
 #authentication
-#authStudent = firebase.auth()
+authRecipe = firebase.auth()
