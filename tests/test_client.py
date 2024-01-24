@@ -1,13 +1,13 @@
 import pytest
 from fastapi.testclient import TestClient
 from recipes.schema_dto import Recipe
-from main import app  # Assurez-vous d'ajuster l'import selon votre structure de projet
+from main import app  
 
-# Utiliser un client de test pour interagir avec l'API
+
 client = TestClient(app)
 
 # Définir des données de test
-user_data = {"Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbXlhcGktOGEzNDAiLCJhdWQiOiJteWFwaS04YTM0MCIsImF1dGhfdGltZSI6MTcwNjA4Nzc5NSwidXNlcl9pZCI6ImlnVm1VTUNQT1hWQ2pLNGdPWW5HajlXMDh0TDIiLCJzdWIiOiJpZ1ZtVU1DUE9YVkNqSzRnT1luR2o5VzA4dEwyIiwiaWF0IjoxNzA2MDg3Nzk1LCJleHAiOjE3MDYwOTEzOTUsImVtYWlsIjoic3RyaW5nQGhvdG1haWwuZnIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3RyaW5nQGhvdG1haWwuZnIiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.fRdN4km0U8ZTp0hWdVoL5c0xk0bGHwt_1wVaMhNzdSeIfdaix4U4Dp_Uswnl0hCfQItd8XG-MQAka3y6tnScQ0T8k4hEONacHzF5fJXvvc1pGODtTjq4SxuLI3uoHHyByothqQJLwiVP3LzL6wunvnGC-1DVGdXqFdwJ9DWlE0MyusMGsDzV6jdRJfY9s5sNOBgQ87CCgqwhozXtp8gXi3E3BI0SC5FE6T6VvXR_DYAkEor4QiiiBRladAk-v1uaxRGejjhWzaG00PBCdmNvka0bTMoXnFCw9mK6eXqUfXl19hIaq_6YUH-QNYVm9C9sl_E3J1H5XS4Vxhh-ZSUf5g"}  # Remplacez par un vrai token pour l'utilisateur
+user_data = {"Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbXlhcGktOGEzNDAiLCJhdWQiOiJteWFwaS04YTM0MCIsImF1dGhfdGltZSI6MTcwNjEwMDc2OCwidXNlcl9pZCI6Inl0bEtvbXdVWXJaU1h5SXVPRGZ2cGw3NHFyMTIiLCJzdWIiOiJ5dGxLb213VVlyWlNYeUl1T0RmdnBsNzRxcjEyIiwiaWF0IjoxNzA2MTAwNzY4LCJleHAiOjE3MDYxMDQzNjgsImVtYWlsIjoic3RyaW5nQGxpdmUuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInN0cmluZ0BsaXZlLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.h_L8O8lr8x4J-ZvtrHlrjugulZ_ynjARqWxxeLis7f8z8P-EfX27L9z-xCDp6k4NDXWUsN-OUtFlC5j1NkfDDdYcs0aiZmgOuAmmGSNqCk9Rx_CYweXL9meevDLOO_ZHLwox6SuGDv9mUFsZa_KdlD3GRaXVoSqFMwohjVIH0dY-l1w1uv-oRxlDHNPvRQz31vRwgEYWw8CJR7ckXnuji-8_N8vbGZlt16VmAT-slC5vDxTQ-30Mxa4l43MHrPABcXFXCGvmSOxvAVflhiOnnSgIo2V7cSJ9pBrJsCGQUBzBNBgIp084pkZs1UedBWmCTcylWdfB755Ti3ycO3ZNCw"}  
 
 # Tester l'endpoint d'affichage des recettes
 def test_display_recipes():
@@ -36,13 +36,13 @@ def test_get_recipe_by_category():
 
 # Tester l'endpoint de récupération par ID
 def test_get_recipe_by_id():
-    response = client.get("/recipes/c58bb370-1054-4ee0-aa1f-b57d2ec39dae", headers=user_data)  # Remplacez par un vrai ID de recette
+    response = client.get("/recipes/c58bb370-1054-4ee0-aa1f-b57d2ec39dae", headers=user_data) 
     assert response.status_code == 200
     assert isinstance(response.json(), dict)
 
 # Tester l'endpoint de suppression par ID
 def test_delete_recipe():
-    response = client.delete("/recipes/d95f3750-45c6-4ad3-844e-dc00a79b2ca0", headers=user_data)  # Remplacez par un vrai ID de recette
+    response = client.delete("/recipes/d95f3750-45c6-4ad3-844e-dc00a79b2ca0", headers=user_data)  
     assert response.status_code == 200
     assert response.json() == {"message": "recipe deleted"}
 
